@@ -1,4 +1,4 @@
-import wordsBank from "./words-bank.json";
+import wordsBank from "../../words-bank.json";
 
 /**
  * Simple function for return a random word of a list
@@ -6,7 +6,7 @@ import wordsBank from "./words-bank.json";
  * @returns {string} a random word of the words bank
  */
 
-export function getRandomWord(){
+export function getRandomWord(): string{
   const randomIndex= Math.floor(Math.random() * wordsBank.length)
   return wordsBank[randomIndex];
 }
