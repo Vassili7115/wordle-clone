@@ -13,8 +13,8 @@ const WordRow: FC<WordRowProps> = ({ letters: lettersProps = '' }) => {
 
   return (
     <div className='grid grid-cols-5 gap-4'>
-      {letters.map((letter) =>
-        <CharacterBox key={letter} value={letter} />
+      {letters.map((letter, index) =>
+        <CharacterBox key={index} value={letter} />
       )}
     </div>
   );

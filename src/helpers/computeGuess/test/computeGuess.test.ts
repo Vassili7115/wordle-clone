@@ -3,6 +3,10 @@ import { describe, expect, it } from 'vitest'
 import { computeGuess } from '../computeGuess'
 
 describe('computeGuess', () => {
+ it('return empty array when given incomplete guess', ()=>{
+   expect(computeGuess('bo','boost')).toEqual([])
+ })
+
   it('works with match ,miss and present', () => {
     expect(computeGuess('boost', 'basic')).toEqual([LetterState.Match, LetterState.Miss, LetterState.Miss, LetterState.Present, LetterState.Miss])
   });
@@ -21,5 +25,9 @@ describe('computeGuess', () => {
 
   it('only does one match when two letters are present', () => {
     expect(computeGuess('solid', 'boost')).toEqual([LetterState.Present, LetterState.Match, LetterState.Miss, LetterState.Miss, LetterState.Miss])
+  });
+
+  it('only does one match when two letters are present', () => {
+    expect(computeGuess('alley', 'smelt')).toEqual([LetterState.Miss, LetterState.Present, LetterState.Miss, LetterState.Present, LetterState.Miss])
   });
 });
