@@ -12,7 +12,7 @@ export enum LetterState {
 
  export function computeGuess(
   guess: string,
-  answer: string
+  answer: string 
 ): LetterState[] {
   const result: LetterState[] = [];
 
@@ -67,6 +67,5 @@ export enum LetterState {
     answerLetterCount[guessLetter]--;
   });
 
-  console.log('XXXXXXXXXXX ~ file: computeGuess.ts ~ line 72 ~ result', result);
   return result;
 }
