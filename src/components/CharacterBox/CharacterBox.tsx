@@ -15,7 +15,7 @@ const CharacterBox: FC<CharacterBoxProps> = ({ value, state }) => {
 
   return (
     <span
-      className={`inline-block border border-gray-500 p-4 uppercase font-bold text-2xl text-center ${characterStateStyles[state]}`}
+      className={`inline-block border border-gray-500 p-4 before:inline-block uppercase font-bold text-2xl text-center ${characterStateStyles[state]}`}
     >
       {value}
     </span>
