@@ -29,7 +29,7 @@ function App() {
 
   rows = rows.concat(Array(numberOfGuessesRemaining).fill(''));
 
-  const isGameOver = state.rows.length === GUESS_LENGTH;
+  const isGameOver = state.gameState !== 'playing';
 
   return (
     <div className="mx-auto w-96 relative">

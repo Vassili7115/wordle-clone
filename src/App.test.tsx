@@ -13,7 +13,7 @@ describe('Simple working test', () => {
   });
 
   it('shows empty state', () => {
-    useStore.setState({ rows: [] });
+    useStore.getState().newGame([]);
     render(<App />);
 
     expect(screen.queryByText('GAME OVER !')).toBeNull();
@@ -27,23 +27,30 @@ describe('Simple working test', () => {
   }
 
   it('shows one rows of guesses', () => {
-    useStore.setState({
-      rows: Array(1).fill('hello'),
-    });
+    useStore.getState().newGame(['hello']);
     render(<App />);
 
     expect(document.querySelector('main')?.textContent).toEqual('hello');
   });
 
-  it('shows game over', () => {
-    useStore.setState({ rows: Array(6).fill('hello') });
+  it('shows lost game over state', () => {
+    useStore.getState().newGame(Array(6).fill('hello'));
+    render(<App />);
+
+    expect(screen.getByText('GAME OVER !')).toBeInTheDocument();
+  });
+
+  it('shows won game over state', () => {
+    useStore.getState().newGame(Array(2).fill('hello'));
+    const answer = useStore.getState().answer;
+    useStore.getState().addGuess(answer);
     render(<App />);
 
     expect(screen.getByText('GAME OVER !')).toBeInTheDocument();
   });
 
   it('can start a new game', () => {
-    useStore.setState({ rows: Array(6).fill('hello') });
+    useStore.getState().newGame(Array(6).fill('hello'));
     render(<App />);
 
     expect(screen.getByText('GAME OVER !')).toBeInTheDocument();
