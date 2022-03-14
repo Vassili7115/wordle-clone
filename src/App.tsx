@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import WordRow from './components/WordRow/WordRow';
-import { NUMBER_OF_GUESSES } from './constants/constants';
+import { NUMBER_OF_GUESSES, WORD_LENGTH } from './constants/constants';
+import { isValidWord } from './helpers/isValidWord/isValidWord';
 import { useGuess } from './hooks/useGuess';
+import { usePrevious } from './hooks/usePrevious';
 import { useStore } from './store';
 
 function App() {
   const state = useStore();
   const [guess, setGuess] = useGuess();
 
+  const [showInvalidGuess, setInvalidGuess] = useState(false);
+
+  const addGuess = useStore((s) => s.addGuess);
+  const previousGuess = usePrevious(guess);
+
+  useEffect(() => {
+    let id: any;
+    if (showInvalidGuess) {
+      id = setTimeout(() => {
+        setInvalidGuess(false);
+      }, 1500);
+    }
+
+    return () => clearTimeout(id);
+  }, [showInvalidGuess]);
+
+  useEffect(() => {
+    if (guess.length === 0 && previousGuess?.length === WORD_LENGTH) {
+      if (isValidWord(previousGuess)) {
+        setInvalidGuess(false);
+        addGuess(previousGuess);
+      } else {
+        setInvalidGuess(true);
+        setGuess(previousGuess);
+      }
+    }
+  }, [guess]);
+
   let rows = [...state.rows];
 
+  let currentRow = 0;
   if (rows.length < NUMBER_OF_GUESSES) {
-    rows.push({ guess }) - 1;
+    currentRow = rows.push({ guess }) - 1;
   }
 
   const numberOfGuessesRemaining = NUMBER_OF_GUESSES - rows.length;
@@ -28,7 +59,14 @@ function App() {
 
       <main className="grid grid-rows-6 gap-4">
         {rows.map(({ guess, result }, index) => (
-          <WordRow key={index} letters={guess} result={result} />
+          <WordRow
+            className={
+              showInvalidGuess && currentRow === index ? 'animate-bounce' : ''
+            }
+            key={index}
+            letters={guess}
+            result={result}
+          />
         ))}
       </main>
 

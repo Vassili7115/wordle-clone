@@ -4,11 +4,13 @@ import { LetterState } from '../../helpers/computeGuess/computeGuess';
 import CharacterBox from '../CharacterBox/CharacterBox';
 
 type WordRowProps = {
+  className?: string;
   letters: string;
   result?: LetterState[];
 };
 
 const WordRow: FC<WordRowProps> = ({
+  className = '',
   letters: lettersProps = '',
   result = [],
 }) => {
@@ -18,7 +20,7 @@ const WordRow: FC<WordRowProps> = ({
     .concat(Array(letterRemaining).fill(''));
 
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div className={`grid grid-cols-5 gap-4 ${className}`}>
       {letters.map((letter, index) => (
         <CharacterBox key={index} value={letter} letterState={result[index]} />
       ))}
