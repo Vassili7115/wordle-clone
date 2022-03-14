@@ -1,6 +1,7 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
 import App from './App';
+import { LetterState } from './helpers/computeGuess/computeGuess';
 import { useStore } from './store';
 import { render, screen, userEvent } from './utils/test-utils';
 
@@ -12,7 +13,7 @@ describe('Simple working test', () => {
   });
 
   it('shows empty state', () => {
-    useStore.setState({ guesses: [] });
+    useStore.setState({ rows: [] });
     render(<App />);
 
     expect(screen.queryByText('GAME OVER !')).toBeNull();
@@ -20,22 +21,29 @@ describe('Simple working test', () => {
     expect(document.querySelector('main')?.textContent).toEqual('');
   });
 
+  interface GuessRow {
+    guess: string;
+    result?: LetterState[];
+  }
+
   it('shows one rows of guesses', () => {
-    useStore.setState({ guesses: ['hello'] });
+    useStore.setState({
+      rows: Array(1).fill('hello'),
+    });
     render(<App />);
 
     expect(document.querySelector('main')?.textContent).toEqual('hello');
   });
 
   it('shows game over', () => {
-    useStore.setState({ guesses: Array(6).fill('hello') });
+    useStore.setState({ rows: Array(6).fill('hello') });
     render(<App />);
 
     expect(screen.getByText('GAME OVER !')).toBeInTheDocument();
   });
 
   it('can start a new game', () => {
-    useStore.setState({ guesses: Array(6).fill('hello') });
+    useStore.setState({ rows: Array(6).fill('hello') });
     render(<App />);
 
     expect(screen.getByText('GAME OVER !')).toBeInTheDocument();
