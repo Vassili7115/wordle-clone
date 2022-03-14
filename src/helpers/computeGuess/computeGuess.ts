@@ -18,11 +18,11 @@ export function computeGuess(guess: string, answer: string): LetterState[] {
   }
 
   const answerArray = answer.split('');
-  const guessAsArray = guess.split('');
+  const guessArray = guess.split('');
 
   const answerLetterCount: Record<string, number> = {};
 
-  guessAsArray.forEach((letter, index) => {
+  guessArray.forEach((letter, index) => {
     const currentAnswerLetter = answerArray[index];
 
     answerLetterCount[currentAnswerLetter] = answerLetterCount[
@@ -45,7 +45,7 @@ export function computeGuess(guess: string, answer: string): LetterState[] {
       return;
     }
 
-    const guessLetter = guessAsArray[resultIndex];
+    const guessLetter = guessArray[resultIndex];
 
     answerArray.forEach((currentAnswerLetter, answerIndex) => {
       if (currentAnswerLetter !== guessLetter) {

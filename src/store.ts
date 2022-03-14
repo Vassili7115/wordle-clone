@@ -2,7 +2,7 @@ import { computeGuess, LetterState } from './helpers/computeGuess/computeGuess';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { getRandomWord } from './helpers/getRandomWord/getRandomWord';
-import { GUESS_LENGTH } from './constants/constants';
+import { NUMBER_OF_GUESSES } from './constants/constants';
 
 interface GuessRow {
   guess: string;
@@ -20,36 +20,35 @@ interface StoreState {
 export const useStore = create<StoreState>(
   persist(
     (set, get) => {
-      function addGuess(guess: string) {
+      const addGuess = (guess: string) => {
         const result = computeGuess(guess, get().answer);
-        const hasWin = result.every((letter) => letter === LetterState.Match);
-        const rows = [
-          ...get().rows,
-          {
-            guess,
-            result,
-          },
-        ];
+
+        const rows = get().rows.concat({
+          guess,
+          result,
+        });
+
+        const hasWin = result.every((res) => res === LetterState.Match);
 
         set(() => ({
           rows,
           gameState: hasWin
             ? 'won'
-            : rows.length === GUESS_LENGTH
+            : rows.length === NUMBER_OF_GUESSES
             ? 'lost'
             : 'playing',
         }));
-      }
+      };
 
       return {
         answer: getRandomWord(),
         gameState: 'playing',
         rows: [],
         addGuess,
-        newGame: (initialRows = []) => {
+        newGame(initialRows = []) {
           set({
-            answer: getRandomWord(),
             gameState: 'playing',
+            answer: getRandomWord(),
             rows: [],
           });
 
