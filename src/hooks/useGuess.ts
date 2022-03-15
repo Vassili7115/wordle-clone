@@ -34,7 +34,12 @@ export function useGuess(): [
 
   const onKeyDown = (e: KeyboardEvent) => {
     let letter = e.key;
-    addGuessLetter(letter);
+    // regex to check if the key pressed is only a letter (space, special character not allowed)
+    const letterAccepted = /[A-Za-z]/;
+
+    if (letter.match(letterAccepted)) {
+      addGuessLetter(letter);
+    }
   };
 
   useEffect(() => {
