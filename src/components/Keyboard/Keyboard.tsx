@@ -1,7 +1,9 @@
 import { keyboard } from '@testing-library/user-event/dist/keyboard';
 import React, { FC } from 'react';
 
-type KeyboardProps = {};
+export type KeyboardProps = {
+  onClick: (letter: string) => void;
+};
 
 const keyboardKeys = [
   ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
@@ -9,7 +11,12 @@ const keyboardKeys = [
   ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Backspace'],
 ];
 
-const Keyboard: FC<KeyboardProps> = (props) => {
+const Keyboard: FC<KeyboardProps> = ({ onClick: onClickProp }) => {
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const letter = e.currentTarget.textContent;
+
+    onClickProp(letter);
+  };
   return (
     <div className="flex flex-col">
       {keyboardKeys.map((keyboradRow, rowIndex) => {
@@ -22,8 +29,12 @@ const Keyboard: FC<KeyboardProps> = (props) => {
                 styles += ' bg-gray-400';
               }
 
+              if (key === '') {
+                styles += ' pointers-event-none cursor-default';
+              }
+
               return (
-                <button key={keyIndex} className={styles}>
+                <button key={keyIndex} className={styles} onClick={onClick}>
                   {key}
                 </button>
               );

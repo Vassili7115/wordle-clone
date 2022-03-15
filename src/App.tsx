@@ -9,7 +9,7 @@ import { useStore } from './store';
 
 function App() {
   const state = useStore();
-  const [guess, setGuess] = useGuess();
+  const [guess, setGuess, addGuessLetter] = useGuess();
 
   const [showInvalidGuess, setInvalidGuess] = useState(false);
 
@@ -58,7 +58,11 @@ function App() {
         <h1 className="text-6xl text-center">Wordle clone</h1>
       </header>
 
-      <Keyboard />
+      <Keyboard
+        onClick={(letter) => {
+          addGuessLetter(letter);
+        }}
+      />
 
       <main className="grid grid-rows-6 gap-4">
         {rows.map(({ guess, result }, index) => (
