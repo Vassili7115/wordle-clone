@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Keyboard from './components/Keyboard/Keyboard';
 import WordRow from './components/WordRow/WordRow';
 import { NUMBER_OF_GUESSES, WORD_LENGTH } from './constants/constants';
 import { isValidWord } from './helpers/isValidWord/isValidWord';
@@ -56,6 +57,8 @@ function App() {
       <header className="border-b border-grey-500 pb-2 mb-2">
         <h1 className="text-6xl text-center">Wordle clone</h1>
       </header>
+
+      <Keyboard />
 
       <main className="grid grid-rows-6 gap-4">
         {rows.map(({ guess, result }, index) => (
