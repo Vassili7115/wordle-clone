@@ -17,7 +17,7 @@ function App() {
   const previousGuess = usePrevious(guess);
 
   useEffect(() => {
-    let id: any;
+    let id: NodeJS.Timeout;
     if (showInvalidGuess) {
       id = setTimeout(() => {
         setInvalidGuess(false);
