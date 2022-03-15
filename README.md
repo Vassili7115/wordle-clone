@@ -1,3 +1,3 @@
-# react wordle-clone
+# react wordle
 
-Let's code a clone of the new wordle game with react
+Let's code a wordle game with react

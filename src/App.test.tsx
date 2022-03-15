@@ -9,7 +9,7 @@ describe('Simple working test', () => {
   it('the title is visible', () => {
     render(<App />);
 
-    expect(screen.getByText(/Wordle clone/i)).toBeInTheDocument();
+    expect(screen.getByText(/Wordle/i)).toBeInTheDocument();
   });
 
   it('shows empty state', () => {

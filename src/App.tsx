@@ -56,7 +56,7 @@ function App() {
   return (
     <div className="mx-auto w-96 relative">
       <header className="border-b border-grey-500 pb-2 mb-2">
-        <h1 className="text-6xl text-center">Wordle clone</h1>
+        <h1 className="text-6xl text-center">Wordle</h1>
       </header>
       <main className="grid grid-rows-6 gap-4 mb-4">
         {rows.map(({ guess, result }, index) => (

@@ -81,7 +81,7 @@ export const useStore = create<StoreState>(
       };
     },
     {
-      name: 'Wordle clone',
+      name: 'Wordle',
     }
   )
 );
