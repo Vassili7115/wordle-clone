@@ -10,7 +10,7 @@ const Keyboard: FC<KeyboardProps> = ({ onClick: onClickProp }) => {
   const keyboardLetterState = useStore((state) => state.keyboardLetterState);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const letter = e.currentTarget.textContent;
+    const letter = e.currentTarget.textContent || '';
 
     onClickProp(letter);
   };
